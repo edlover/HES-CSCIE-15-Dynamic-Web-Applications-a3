@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+# Route for Laravel 5 Log Viewer (https://github.com/rap2hpoutre/laravel-log-viewer)
+if (config('app.env') == 'local') {
+    Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+}
+
+Route::get('/', 'BillSplitterController@show');
