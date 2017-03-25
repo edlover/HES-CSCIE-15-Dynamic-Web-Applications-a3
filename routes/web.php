@@ -16,4 +16,8 @@ if (config('app.env') == 'local') {
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 }
 
+# Route to display the Bill Splitter view
 Route::get('/', 'BillSplitterController@show');
+
+# Route to retrieve the data from the form and perform the calculations
+Route::get('/calculate', 'BillSplitterController@calculate');

@@ -16,24 +16,24 @@
                 <h1>Bill Splitter</h1>
             </div>
         </div>
-        <form method="GET">
+        <form method="GET" action="/calculate">
             <div class="row">
                 <div class="col-xs-6 rightJustify">
                     <label for="splitNumTimes">Split how many ways?:</label>
                 </div>
                 <div class="col-xs-6">
                     <select name="splitNumTimes" id="splitNumTimes">
-                        <?php if(!isset($splitBy)) $splitBy = "1" ?>
-                        <option value="1" <?php if($splitBy == "1") echo "selected" ?>>1</option>
-                        <option value="2" <?php if($splitBy == "2") echo "selected" ?>>2</option>
-                        <option value="3" <?php if($splitBy == "3") echo "selected" ?>>3</option>
-                        <option value="4" <?php if($splitBy == "4") echo "selected" ?>>4</option>
-                        <option value="5" <?php if($splitBy == "5") echo "selected" ?>>5</option>
-                        <option value="6" <?php if($splitBy == "6") echo "selected" ?>>6</option>
-                        <option value="7" <?php if($splitBy == "7") echo "selected" ?>>7</option>
-                        <option value="8" <?php if($splitBy == "8") echo "selected" ?>>8</option>
-                        <option value="9" <?php if($splitBy == "9") echo "selected" ?>>9</option>
-                        <option value="10" <?php if($splitBy == "10") echo "selected" ?>>10</option>
+                        {{-- <?php if(!isset($splitBy)) $splitBy = "1" ?> --}}
+                        <option value="1" >1</option>
+                        <option value="2" >2</option>
+                        <option value="3" >3</option>
+                        <option value="4" >4</option>
+                        <option value="5" >5</option>
+                        <option value="6" >6</option>
+                        <option value="7" >7</option>
+                        <option value="8" >8</option>
+                        <option value="9" >9</option>
+                        <option value="10" >10</option>
                     </select>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                     <p class="subScript">* Required</p>
                 </div>
                 <div class="col-xs-6">
-                    <input type="text" name="billAmount" id="billAmount" placeholder="ex. 24.99">
+                    <input type="text" name="billAmount" id="billAmount" placeholder="ex. 24.99" value="{{ $billAmount or '' }}">
                 </div>
             </div>
             <div class="row">
@@ -52,11 +52,11 @@
                 </div>
                 <div class="col-xs-6">
                     <select name="serviceScore" id="serviceScore">
-                        <?php if(!isset($serviceScore)) $serviceScore = "Exceptional" ?>
-                        <option value="Exceptional" <?php if($serviceScore == "Exceptional") echo "selected" ?>>Exceptional (20%)</option>
-                        <option value="Good" <?php if($serviceScore == "Good") echo "selected" ?>>Good (15%)</option>
-                        <option value="Poor" <?php if($serviceScore == "Poor") echo "selected" ?>>Poor (10%)</option>
-                        <option value="Awful" <?php if($serviceScore == "Awful") echo "selected" ?>>Awful (0%)</option>
+                        {{-- <?php if(!isset($serviceScore)) $serviceScore = "Exceptional" ?> --}}
+                        <option value="Exceptional" >Exceptional (20%)</option>
+                        <option value="Good" >Good (15%)</option>
+                        <option value="Poor" >Poor (10%)</option>
+                        <option value="Awful" >Awful (0%)</option>
                     </select>
                 </div>
             </div>
@@ -75,6 +75,45 @@
                 </div>
             </div>
         </form>
+
+        @if(count($errors) > 0)
+            <div class='alert alert-danger'>
+                <div class="row">
+                    <div class="col-xs-4 rightJustify">
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                    </div>
+                    <div class="col-xs-8">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        @elseif($billTotal != null)
+            <div class='alert alert-info'>
+                <div class="row">
+                    <div class="col-xs-4 rightJustify">
+                        <span class="glyphicon glyphicon-ok-circle"></span>
+                    </div>
+                    <div class="col-xs-8">
+                        <ul>
+                            <li>Total (with tip): {{ $billTotal }}</li>
+                            @if($roundChecked)
+                                <li>Each person pays (rounded up): {{ $eachPaysRounded }}</li>
+                                <li>With rounding, the total to leave is: {{ $billTotalRounded }}</li>
+                            @else
+                                <li>Each person pays: {{ $eachPays }}</li>
+                            @endif
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+
+
 
     </div>
 @endsection
