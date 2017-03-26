@@ -11,7 +11,15 @@ class BillSplitterController extends Controller
     */
     public function show() {
         $billTotal = null;
+        $billAmount = null;
+        $splitBy = null;
+        $serviceScore = null;
+        $roundChecked = false;
         return view('BillSplitter.show')->with([
+            'billAmount' => $billAmount,
+            'splitBy' => $splitBy,
+            'serviceScore' => $serviceScore,
+            'roundChecked' => $roundChecked,
             'billTotal' => $billTotal,
         ]);
     }
@@ -20,7 +28,6 @@ class BillSplitterController extends Controller
     * GET /calculate
     */
     public function calculate(Request $request) {
-
         $eachPaysRounded = null;
         $billTotalRounded = null;
         $eachPays = null;
@@ -72,8 +79,11 @@ class BillSplitterController extends Controller
         $billTotal = number_format($billTotal, 2);
 
         return view('BillSplitter.show')->with([
-            'billTotal' => $billTotal,
+            'billAmount' => $billAmount,
+            'splitBy' => $splitBy,
+            'serviceScore' => $serviceScore,
             'roundChecked' => $roundChecked,
+            'billTotal' => $billTotal,
             'eachPaysRounded' => $eachPaysRounded,
             'billTotalRounded' => $billTotalRounded,
             'eachPays' => $eachPays,

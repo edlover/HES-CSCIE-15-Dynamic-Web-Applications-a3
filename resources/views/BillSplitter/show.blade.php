@@ -23,17 +23,16 @@
                 </div>
                 <div class="col-xs-6">
                     <select name="splitNumTimes" id="splitNumTimes">
-                        {{-- <?php if(!isset($splitBy)) $splitBy = "1" ?> --}}
-                        <option value="1" >1</option>
-                        <option value="2" >2</option>
-                        <option value="3" >3</option>
-                        <option value="4" >4</option>
-                        <option value="5" >5</option>
-                        <option value="6" >6</option>
-                        <option value="7" >7</option>
-                        <option value="8" >8</option>
-                        <option value="9" >9</option>
-                        <option value="10" >10</option>
+                        <option value="1" {{ ($splitBy == "1") ? "selected" : "" }} >1</option>
+                        <option value="2" {{ ($splitBy == "2") ? "selected" : "" }} >2</option>
+                        <option value="3" {{ ($splitBy == "3") ? "selected" : "" }} >3</option>
+                        <option value="4" {{ ($splitBy == "4") ? "selected" : "" }} >4</option>
+                        <option value="5" {{ ($splitBy == "5") ? "selected" : "" }} >5</option>
+                        <option value="6" {{ ($splitBy == "6") ? "selected" : "" }} >6</option>
+                        <option value="7" {{ ($splitBy == "7") ? "selected" : "" }} >7</option>
+                        <option value="8" {{ ($splitBy == "8") ? "selected" : "" }} >8</option>
+                        <option value="9" {{ ($splitBy == "9") ? "selected" : "" }} >9</option>
+                        <option value="10" {{ ($splitBy == "10") ? "selected" : "" }} >10</option>
                     </select>
                 </div>
             </div>
@@ -43,7 +42,7 @@
                     <p class="subScript">* Required</p>
                 </div>
                 <div class="col-xs-6">
-                    <input type="text" name="billAmount" id="billAmount" placeholder="ex. 24.99" value="{{ $billAmount or '' }}">
+                    <input type="text" name="billAmount" id="billAmount" placeholder="ex. 24.99" value='{{ $billAmount }}'>
                 </div>
             </div>
             <div class="row">
@@ -52,11 +51,10 @@
                 </div>
                 <div class="col-xs-6">
                     <select name="serviceScore" id="serviceScore">
-                        {{-- <?php if(!isset($serviceScore)) $serviceScore = "Exceptional" ?> --}}
-                        <option value="Exceptional" >Exceptional (20%)</option>
-                        <option value="Good" >Good (15%)</option>
-                        <option value="Poor" >Poor (10%)</option>
-                        <option value="Awful" >Awful (0%)</option>
+                        <option value="Exceptional" {{ ($serviceScore == "Exceptional") ? "selected" : "" }} >Exceptional (20%)</option>
+                        <option value="Good" {{ ($serviceScore == "Good") ? "selected" : "" }} >Good (15%)</option>
+                        <option value="Poor" {{ ($serviceScore == "Poor") ? "selected" : "" }} >Poor (10%)</option>
+                        <option value="Awful" {{ ($serviceScore == "Awful") ? "selected" : "" }}>Awful (0%)</option>
                     </select>
                 </div>
             </div>
@@ -65,7 +63,7 @@
                     <label for="roundUp">Round up?:</label>
                 </div>
                 <div class="col-xs-6">
-                    <input type="checkbox" name="roundUp" id="roundUp">
+                    <input type="checkbox" name="roundUp" id="roundUp" {{ $roundChecked ? "checked" : "" }}>
                       Yes
                 </div>
             </div>
