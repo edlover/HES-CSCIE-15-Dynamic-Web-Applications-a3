@@ -15,6 +15,7 @@ class BillSplitterController extends Controller
         $splitBy = null;
         $serviceScore = null;
         $roundChecked = false;
+
         return view('BillSplitter.show')->with([
             'billAmount' => $billAmount,
             'splitBy' => $splitBy,
@@ -32,6 +33,8 @@ class BillSplitterController extends Controller
         $billTotalRounded = null;
         $eachPays = null;
 
+        $percentage = new TipPercentage();
+
         # perform validation on the form entries
         $this->validate($request, [
             'billAmount' => 'required|numeric',
@@ -43,26 +46,8 @@ class BillSplitterController extends Controller
         $serviceScore = $request->input('serviceScore', null);
         $roundChecked = $request->input('roundUp');
 
-        # perform validation on the form entries
-        $this->validate($request, [
-            'billAmount' => 'required|numeric',
-        ]);
-
-        # assign the service score to a percentage for calculation
-        switch ($serviceScore) {
-            case 'Exceptional':
-                $tipPercent = 0.20;
-                break;
-            case 'Good':
-                $tipPercent = 0.15;
-                break;
-            case 'Poor':
-                $tipPercent = 0.10;
-                break;
-            case 'Awful':
-                $tipPercent = 0;
-                break;
-        }
+        # get the tip percentage based on the service score
+        $tipPercent = $percentage->get($serviceScore);
 
         # calculate bill total and amount each pays
         $billTotal = ($billAmount * $tipPercent) + $billAmount;

@@ -109,11 +109,8 @@
                 </div>
             </div>
         @endif
-
-
-
-
     </div>
+    
 @endsection
 
 @push('body')
