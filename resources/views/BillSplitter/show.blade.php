@@ -5,7 +5,7 @@
 @endsection
 
 @push('head')
-     <!-- <link href="/css/books/show.css" type='text/css' rel='stylesheet'> -->
+     
 @endpush
 
 @section('content')
@@ -110,9 +110,9 @@
             </div>
         @endif
     </div>
-    
+
 @endsection
 
 @push('body')
-    <!-- <script src="/js/books/show.js"></script> -->
+
 @endpush
